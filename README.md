@@ -102,7 +102,7 @@ codex
 # 以下客户端仅在子进程中获得所选凭据。
 khapiman run --trust-workspace claude
 khapiman run --trust-workspace opencode
-khapiman run --trust-workspace aider -- --model openai/relay-model-id
+khapiman run --trust-workspace aider
 ```
 
 使用 `--trust-workspace` 前必须审阅当前工作区。项目钩子、插件、可执行配置和子进程均属于信任边界。
