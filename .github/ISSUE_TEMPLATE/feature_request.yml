@@ -1,0 +1,39 @@
+name: Feature request
+description: Propose a focused improvement to KHapiMAN.
+title: "feature: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        KHapiMAN currently supports only Codex CLI, Claude Code, OpenCode and Aider. Cursor, Windsurf, Cline and Gemini are out of scope.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What workflow is difficult today, and who experiences it?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the user-visible commands, terminal flow or config effect.
+    validations:
+      required: true
+
+  - type: textarea
+    id: security
+    attributes:
+      label: Security and compatibility considerations
+      description: Explain effects on keys, config preservation, rollback and the three supported operating systems.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
