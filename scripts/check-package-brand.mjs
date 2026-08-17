@@ -37,7 +37,12 @@ try {
       maxBuffer: 16 * 1024 * 1024,
     },
   );
-  const [manifest] = JSON.parse(stdout);
+  // npm 10 can emit prepare-script output before the JSON payload even when
+  // --ignore-scripts is set. The top-level JSON array itself always starts at
+  // the beginning of a line, while nested arrays are indented.
+  const manifestStart = stdout.lastIndexOf("\n[");
+  const manifestJson = stdout.slice(manifestStart < 0 ? 0 : manifestStart + 1);
+  const [manifest] = JSON.parse(manifestJson);
 
   if (
     !manifest ||
