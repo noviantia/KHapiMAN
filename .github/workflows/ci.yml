@@ -1,0 +1,49 @@
+name: KHapiMAN CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: ${{ matrix.os }} / Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+        node:
+          - 22
+          - 24
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Verify dependency sources
+        run: node scripts/check-lockfile-hosts.mjs
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run checks, build, and inspect package branding
+        run: npm run check
+
+      - name: Check formatting
+        run: npm run format:check
